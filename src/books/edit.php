@@ -28,6 +28,9 @@
 				<li class="nav-item">
 				<a class="nav-link active" href="../readers/readers.php">Borrower's List</a>
 				</li>
+				<li class="nav-item">
+				<a class="nav-link active" href="books_chart.php">See Books Chart</a>
+				</li>
 			</ul>
 		</div>
     </nav>
@@ -35,11 +38,11 @@
     <div class="wrapper">
 		<div style="color:red">
         <?php 
-				if($_GET['id'] == null) {
+				if($_GET['id_book'] == null) {
 					header("location: books.php");
 				}
-				$id = $_GET['id']; 
-				$script = "SELECT * FROM books WHERE id = $id"; 
+				$id_book = $_GET['id_book']; 
+				$script = "SELECT * FROM books WHERE id_book = $id_book"; 
 				$query = mysqli_query($conn, $script); 
 				$data = mysqli_fetch_array($query); 
 				if(isset($_POST['submit'])){
@@ -54,12 +57,12 @@
 
 						if($file_tmp == null) {
 							$cover = $data['cover']; 
-							$script = "UPDATE books SET title='$title', writer='$writer', genre='$genre', pages='$pages', publisher='$publisher', years='$years', cover='$cover' WHERE id=$id"; 
+							$script = "UPDATE books SET title='$title', writer='$writer', genre='$genre', pages='$pages', publisher='$publisher', years='$years', cover='$cover' WHERE id_book=$id_book"; 
 						}else{ 
 							$type = pathinfo($file_tmp, PATHINFO_EXTENSION); 
 						    $data = file_get_contents($file_tmp); 
 						    $cover='data:assets/img/' . $type.';base64,'. base64_encode($data);
-							$Script = "UPDATE books SET title='$title', writer='$writer', genre='$genre', pages='$pages', publisher='$publisher', years='$years', cover='$cover' WHERE id=$id";
+							$Script = "UPDATE books SET title='$title', writer='$writer', genre='$genre', pages='$pages', publisher='$publisher', years='$years', cover='$cover' WHERE id_book=$id_book";
 						}
 
 						$query = mysqli_query($conn, $script); 

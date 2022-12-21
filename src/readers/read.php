@@ -1,8 +1,8 @@
 <?php require "../../config/config.php";
 
-    if($_GET['id'] != null){
-        $id = $_GET['id']; 
-        $script = "SELECT * FROM readers WHERE id=$id"; 
+    if($_GET['id_reader'] != null){
+        $id_reader = $_GET['id_reader']; 
+        $script = "SELECT * FROM readers WHERE id_reader=$id_reader"; 
         $query = mysqli_query($conn, $script);
         $data = mysqli_fetch_array($query);
     }else{
@@ -34,6 +34,9 @@
 				<li class="nav-item">
 				<a class="nav-link active" href="../books/books.php">Books List</a>
 				</li>
+                <li class="nav-item">
+				<a class="nav-link active" href="../readers/readers_chart.php">See Readers Chart</a>
+				</li>
 			</ul>
     </div>
     </nav>
@@ -48,8 +51,8 @@
                     <div class="row">
                         <div class="col">
                             <h4 class="card-text">Borrower's Identity</h4>
-                            <h5 class="card-text">ID</h5>
-                            <p class="card-text"><?= $data['id'] ?></p>
+                            <h5 class="card-text">ID READER</h5>
+                            <p class="card-text"><?= $data['id_reader'] ?></p>
                             <h5 class="card-text">Name</h5>
                             <p class="card-text"><?= $data['name'] ?></p>
                             <h5 class="card-text">Phone Number</h5>
@@ -63,6 +66,8 @@
                         </div>
                         <div class="col">
                             <h4 class="card-text">Book's Identity</h4>
+                            <h5 class="card-text">ID_BOOK</h5>
+                            <p class="card-text"><?= $data['id_book'] ?></p>
                             <h5 class="card-text">Title</h5>
                             <p class="card-text"><?= $data['title'] ?></p>
                             <h5 class="card-text">Writer</h5>
@@ -74,7 +79,7 @@
             </div>
             <br>
             <center>
-                <ul><a href="readers.php" type="submit" class="btn btn-primary">Kembali</a></ul>
+                <ul><a href="readers.php" type="submit" class="btn btn-primary">Back</a></ul>
             </center>
         </div>
 </body>

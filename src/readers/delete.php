@@ -1,14 +1,14 @@
 <?php
-    if(isset($_POST["id"]) && !empty($_POST["id"])){
+    if(isset($_POST["id_reader"]) && !empty($_POST["id_reader"])){
 
         require_once "../../config/config.php";
 
-        $sql = "DELETE FROM readers WHERE id = ?";
+        $sql = "DELETE FROM readers WHERE id_reader = ?";
 
         if($stmt = mysqli_prepare($conn, $sql)){
-            mysqli_stmt_bind_param($stmt, "i", $param_id);
+            mysqli_stmt_bind_param($stmt, "i", $param_id_reader);
 
-            $param_id = trim($_POST["id"]);
+            $param_id_reader = trim($_POST["id_reader"]);
 
             if(mysqli_stmt_execute($stmt)){
                 header("location: readers.php");
@@ -22,7 +22,7 @@
 
         mysqli_close($conn);
     } else {
-        if(empty(trim($_GET["id"]))){
+        if(empty(trim($_GET["id_reader"]))){
             header("location: error.php");
             exit();
         }
@@ -66,7 +66,7 @@
                     </div>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="alert alert-danger fade in">
-                            <input type="hidden" name="id" value="<?php echo trim($_GET["id"]); ?>"/>
+                            <input type="hidden" name="id_reader" value="<?php echo trim($_GET["id_reader"]); ?>"/>
                             <p>Are you sure want to delete this data?</p></br>
                             <p>
                                 <a href="readers.php" class="btn btn-danger">No</a>

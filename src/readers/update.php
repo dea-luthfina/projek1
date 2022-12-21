@@ -24,6 +24,9 @@
 				<li class="nav-item">
 				<a class="nav-link active" href="../books/books.php">Books List</a>
 				</li>
+                <li class="nav-item">
+				<a class="nav-link active" href="../readers/readers_chart.php">See Readers Chart</a>
+				</li>
 			</ul>
 	</div>
     </nav>
@@ -33,13 +36,13 @@
     <div class="wrapper">
         <div style="color:red">
 			<?php 
-				if($_GET['id'] == null) {
-					header("location: books.php");
+				if($_GET['id_reader'] == null) {
+					header("location: readers.php");
 				}
 
                 // mengambil data reader
-				$id = $_GET['id']; 
-				$script = "SELECT * FROM readers WHERE id = $id"; 
+				$id_reader = $_GET['id_reader']; 
+				$script = "SELECT * FROM readers WHERE id_reader = $id_reader"; 
 				$query = mysqli_query($conn, $script); 
 				$data = mysqli_fetch_array($query); 
 
@@ -49,9 +52,12 @@
                     $role = $_POST['role'];
                     $borrow_date = $_POST['borrow_date'];
                     $return_date = $_POST['return_date'];
+                    $id_book = $_POST['id_book'];
                     $title = $_POST['title'];
                     $writer = $_POST['writer'];
-                    $script = "UPDATE readers SET name='$name', phone='$phone', role='$role', borrow_date='$borrow_date', return_date='$return_date', title='$title', writer='$writer' WHERE id = '$id'"; 
+
+                    $script = "UPDATE readers SET name='$name', phone='$phone', id_book='$id_book', role='$role', borrow_date='$borrow_date', 
+                                return_date='$return_date', title='$title', writer='$writer' WHERE id_reader = '$id_reader'"; 
 					
                     $query = mysqli_query($conn, $script); 
 					
@@ -101,6 +107,10 @@
 
                 <div class="col">
                     <center><h4>Book's Identity</h4></center>
+                    <div class="mb-3">
+                        <label class="form-label">ID BOOK</label>
+                        <input type="number" class="form-control" required name="id_book" value="<?= $data['id_book']?>">
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Title</label>
                         <input type="text" class="form-control" required name="title" value="<?= $data['title']?>">

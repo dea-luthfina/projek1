@@ -1,4 +1,11 @@
-<?php require "config/config.php" ?>
+<?php 
+    session_start();
+    $username = $_SESSION['username'];
+    if(!isset($username)){
+        $_SESSION['msg'] = 'Anda harus login untuk mengakses halaman ini';
+        header('Location: login.php');
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +21,6 @@
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #5837D0;">
     <div class="container-fluid">
-        <!-- link item -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -27,13 +33,18 @@
             <a class="nav-link active" href="src/readers/readers.php"></i>Borrowers's List</a>
             </li>
         </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="btn btn-danger" href="logout.php" name="logout" id="logout">Log Out</a>
+            </li>
+        </ul>
         </div>
     </div>
     </nav>
 
     <center>
         <br>
-        <h2>WELCOME, LIBRARIANS!</h2>
+        <h2>WELCOME, <?=$username;?>!</h2>
         <h3>KOMURA LIBRARY</h3>
         <h3><i class="fa-solid fa-book-open"></i></h3>
         <br>

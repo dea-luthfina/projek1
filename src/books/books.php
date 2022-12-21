@@ -31,6 +31,9 @@
 				<li class="nav-item">
 				<a class="nav-link active" href="../readers/readers.php">Borrower's List</a>
 				</li>
+				<li class="nav-item">
+				<a class="nav-link active" href="books_chart.php">See Books Chart</a>
+				</li>
 			</ul>
 		</div>
 
@@ -63,9 +66,9 @@
 
 				if(isset($_GET['search'])){ 
 					$search = $_GET['search']; 
-					$sql="SELECT * FROM books WHERE title LIKE '%$search%' ORDER BY id ASC LIMIT $posisi, $batas"; 
+					$sql="SELECT * FROM books WHERE title LIKE '%$search%' ORDER BY id_book ASC LIMIT $posisi, $batas"; 
 				}else{ 
-					$sql="SELECT * FROM books ORDER BY id ASC LIMIT $posisi, $batas";
+					$sql="SELECT * FROM books ORDER BY id_book ASC LIMIT $posisi, $batas";
 				}
 
                 // mengambil data dari database
@@ -75,7 +78,7 @@
 
 			
 			<div class="col-sm-2">
-			<a href="details.php?id=<?= $data['id'] ?>">
+			<a href="details.php?id_book=<?= $data['id_book'] ?>">
                 <div class="card" style="width: 10rem; height: 23rem;">
                     <img src="<?= $data['cover'] ?>" class="card-img-top" alt="">
                     <div class="card-body">
@@ -91,11 +94,11 @@
 		<?php
 			if(isset($_GET['search'])){
 				$search= $_GET['search']; 
-				$query2="SELECT * FROM books WHERE title LIKE '%$search%' ORDER BY id ASC"; 
+				$query2="SELECT * FROM books WHERE title LIKE '%$search%' ORDER BY id_book ASC"; 
 			}else{ 
-				$query2="SELECT * FROM books ORDER BY id ASC";
+				$query2="SELECT * FROM books ORDER BY id_book ASC";
 			}
-
+			
 			$result2 = mysqli_query($conn, $query2); 
 			$jmldata = mysqli_num_rows($result2); 
 			$jmlhalaman = ceil($jmldata/$batas);

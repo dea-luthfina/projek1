@@ -27,6 +27,9 @@
 				<li class="nav-item">
 				<a class="nav-link active" href="../readers/readers.php">Borrower's List</a>
 				</li>
+				<li class="nav-item">
+				<a class="nav-link active" href="books_chart.php">See Books Chart</a>
+				</li>
 			</ul>
 		</div>
     </nav>

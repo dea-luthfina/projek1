@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title>Borrowers List</title>
-    <!-- <link rel="stylesheet" href="../../assets/css/style.css"> -->
     <script src="https://kit.fontawesome.com/021b758c3a.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -22,6 +21,9 @@
 				</li>
 				<li class="nav-item">
 				<a class="nav-link active" href="../books/books.php">Books List</a>
+				</li>
+                <li class="nav-item">
+				<a class="nav-link active" href="../readers/readers_chart.php">See Readers Chart</a>
 				</li>
 			</ul>
 
@@ -45,7 +47,7 @@
                         </center>
                         <?php
                             // pagination, batas itu contentnya ada berapa dalam satu page
-                            $batas = 6; 
+                            $batas = 10; 
                             $halaman = $_GET['halaman'] ?? null;
 
                             if(empty($halaman)){
@@ -56,9 +58,9 @@
 
                             if(isset($_GET['search'])){ 
                                 $search = $_GET['search']; 
-                                $sql="SELECT * FROM readers WHERE name LIKE '%$search%' ORDER BY id ASC LIMIT $posisi, $batas"; 
+                                $sql="SELECT * FROM readers WHERE name LIKE '%$search%' ORDER BY id_reader ASC LIMIT $posisi, $batas"; 
                             }else{ 
-                                $sql="SELECT * FROM readers ORDER BY id ASC LIMIT $posisi, $batas";
+                                $sql="SELECT * FROM readers ORDER BY id_reader ASC LIMIT $posisi, $batas";
                             }
                         ?>
                             <table class="table table-bordered">
@@ -79,7 +81,7 @@
                                         while($data = mysqli_fetch_array($select)):
                                     ?>
                                     <tr>
-                                        <td><?= $data['id']; ?></td>
+                                        <td><?= $data['id_reader']; ?></td>
                                         <td><?= $data['name']; ?></td>
                                         <td><?= $data['phone']; ?></td>
                                         <td><?= $data['role']; ?></td>
@@ -89,11 +91,11 @@
                                         <td><?= $data['writer']; ?></td>
                                         <td>
                                             <!-- read -->
-                                            <a href="read.php?id=<?= $data['id'] ?>" style="color: green;"><i class="fa-solid fa-eye"></i></a>
+                                            <a href="read.php?id_reader=<?= $data['id_reader'] ?>" style="color: green;"><i class="fa-solid fa-eye"></i></a>
                                             <!-- update -->
-                                            <a href="update.php?id=<?= $data['id'] ?>" style="color: yellow;"><i class="fa-regular fa-pen-to-square"></i></a>
+                                            <a href="update.php?id_reader=<?= $data['id_reader'] ?>" style="color: yellow;"><i class="fa-regular fa-pen-to-square"></i></a>
                                             <!-- delete -->
-                                            <a href="delete.php?id=<?= $data['id'] ?>" style="color: red;"><i class="fa-regular fa-trash-can"></i></a>
+                                            <a href="delete.php?id_reader=<?= $data['id_reader'] ?>" style="color: red;"><i class="fa-regular fa-trash-can"></i></a>
                                         </td>
                                     </tr>
                                     <?php
@@ -105,9 +107,9 @@
                             <?php
                                 if(isset($_GET['search'])){
                                     $search= $_GET['search']; 
-                                    $query2="SELECT * FROM readers WHERE name LIKE '%$search%' ORDER BY id ASC"; 
+                                    $query2="SELECT * FROM readers WHERE name LIKE '%$search%' ORDER BY id_reader ASC"; 
                                 }else{ 
-                                    $query2="SELECT * FROM readers ORDER BY id ASC";
+                                    $query2="SELECT * FROM readers ORDER BY id_reader ASC";
                                 }
 
                                 $result2 = mysqli_query($conn, $query2); 

@@ -1,23 +1,23 @@
 <?php require "../../config/config.php";
 
-    if($_GET['id'] != null){
-        $id = $_GET['id']; 
-        $script = "SELECT * FROM books WHERE id=$id"; 
+    if($_GET['id_book'] != null){
+        $id_book = $_GET['id_book']; 
+        $script = "SELECT * FROM books WHERE id_book=$id_book"; 
         $query = mysqli_query($conn, $script);
         $data = mysqli_fetch_array($query);
-    }else{
-        header("location: read.php");
+    }else {
+        header("location: error.php");
     }
 
     $query2 = null;
 
     if(isset($_POST['hapus'])) {
-        $script2 = "DELETE FROM books WHERE id = $id"; 
+        $script2 = "DELETE FROM books WHERE id_book = $id_book"; 
         $query2 = mysqli_query($conn, $script2);
     }
 
     if($query2 != null){
-        header("location:books.php");
+        header("location: books.php");
     }
 ?>
 
@@ -33,20 +33,23 @@
     <script src="https://kit.fontawesome.com/021b758c3a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #5837D0;">
-	<div class="container-fluid">
+	<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #5837D0;">
+        <div class="container-fluid">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
 				<a class="nav-link active" href="../../index.php">Home</a>
 				</li>
 				<li class="nav-item">
-				<a class="nav-link active" href="create.php"><i class="fa-solid fa-plus"></i>   Add Books</a>
+				<a class="nav-link active" href="create.php"><i class="fa-solid fa-plus"></i>  Add Books</a>
 				</li>
 				<li class="nav-item">
 				<a class="nav-link active" href="books.php">Book's List</a>
 				</li>
 				<li class="nav-item">
 				<a class="nav-link active" href="../readers/readers.php">Borrower's List</a>
+				</li>
+				<li class="nav-item">
+				<a class="nav-link active" href="books_chart.php">See Books Chart</a>
 				</li>
 			</ul>
 		</div>
@@ -95,8 +98,8 @@
 					<div class="box-button">
 					<form method="post">
 						<h3>Action</h3>
-						<a href="edit.php?id=<?= $data['id'] ?>" class="btn btn-warning">Update</a>
-						<a href="../readers/borrows.php?id=<?= $data['id'] ?>" class="btn btn-info">Borrow</a>
+						<a href="edit.php?id_book=<?= $data['id_book'] ?>" class="btn btn-warning">Update</a>
+						<a href="../readers/borrows.php?id_book=<?= $data['id_book'] ?>" class="btn btn-info">Borrow</a>
 						<input type="submit" name="hapus" value="Delete" class="btn btn-danger"> 
 					</form> 
 					</div>

@@ -25,6 +25,9 @@
 				<li class="nav-item">
 				<a class="nav-link active" href="../books/books.php">Books List</a>
 				</li>
+                 <li class="nav-item">
+				<a class="nav-link active" href="../readers/readers_chart.php">See Readers Chart</a>
+				</li>
 			</ul>
 	</div>
     </nav>
@@ -35,12 +38,12 @@
 		<div style="color:red">
         <?php 
             // mengambil data album
-				if($_GET['id'] == null) {
+				if($_GET['id_book'] == null) {
 					header("location: books.php");
 				}
 
-				$id = $_GET['id']; 
-				$script = "SELECT * FROM books WHERE id = $id"; 
+				$id_book = $_GET['id_book']; 
+				$script = "SELECT * FROM books WHERE id_book = $id_book"; 
 				$query = mysqli_query($conn, $script); 
 				$data = mysqli_fetch_array($query); 
 
@@ -51,10 +54,11 @@
                     $role = $_POST['role'];
                     $borrow_date = $_POST['borrow_date'];
                     $return_date = $_POST['return_date'];
+                    $id_book = $_POST['id_book'];
                     $title = $_POST['title'];
                     $writer = $_POST['writer'];
 
-						$script = "INSERT INTO readers SET name='$name', phone='$phone', role='$role', borrow_date='$borrow_date', return_date='$return_date', title='$title', writer='$writer'";
+						$script = "INSERT INTO readers SET name='$name', id_book='$id_book', phone='$phone', role='$role', borrow_date='$borrow_date', return_date='$return_date', title='$title', writer='$writer'";
 
 						$query = mysqli_query($conn, $script); 
 						if($query) {
@@ -105,6 +109,10 @@
 
                 <div class="col">
                     <center><h4>Book's Identity</h4></center>
+                    <div class="mb-3">
+                        <label class="form-label">ID BOOK</label>
+                        <input type="number" min=0 class="form-control" required name="id_book" value="<?= $data['id_book']?>" autocomplete="off">
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Title</label>
                         <input type="text" class="form-control" required name="title" value="<?= $data['title']?>" autocomplete="off">
